@@ -1,0 +1,20 @@
+---
+- hosts: role=control
+  tasks:
+  - name: consul | Stop service
+    sudo: yes
+    service:
+      name: consul
+      enabled: yes
+      state: stopped
+
+  - name: fix | Remove raft database
+    sudo: yes
+    shell: rm -rf /var/lib/consul/raft/*
+
+  - name: consul | Start service
+    sudo: yes
+    service:
+      name: consul
+      enabled: yes
+      state: started
